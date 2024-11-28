@@ -6,6 +6,7 @@ def main():
     logger.info("Advent Calendar 2023 starts")
 
     document = "calibration-document"
+
     calibration_service = CalibrationService(document)
     logger.info("CalibrationService initiated")
 
