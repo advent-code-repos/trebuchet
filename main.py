@@ -1,7 +1,7 @@
-from config.enums import AdventCalendar, AdventPart
 from config.logger import logger
-from models.day_model import DayModel
-from services.day_services import DayService
+from controllers.calibration_controllers import CalibrationController
+from managers.calibration_manager import CalibrationManager
+from services.calibration_services import CalibrationService
 
 
 def main():
@@ -9,8 +9,11 @@ def main():
 
     document = "calibration-document.example"
 
-    day = DayModel(AdventCalendar.TREBUCHET, AdventPart.FIRST)
-    DayService(day).start(document)
+    service = CalibrationService(logger)
+    manager = CalibrationManager(service, logger)
+    controller = CalibrationController(manager, logger)
+
+    controller.run_calibration_by(document, 1)
 
 
 #  document = "calibration-document-spelled-out-letters.example"

@@ -2,21 +2,20 @@ from config.logger import logger
 
 
 class CalibrationService:
-    def __init__(self, document):
-        self.calibration_value = 0
-        self.document = document
+    def __init__(self, logger):
+        self.logger = logger
 
-    def _reset_calibration_value(self):
         self.calibration_value = 0
 
-    def recalibrate(self):
+    def recalibrate(self, document: str, with_letters: bool):
         self._reset_calibration_value()
         logger.info(
-            f"starts with: {self.document} "
-            f"and calibration_value {self.calibration_value}"
+            f"starts with: {document} "
+            f"and calibration_value {self.calibration_value} "
+            f"and with_letters? {with_letters}"
         )
 
-        with open(self.document, "r") as file:
+        with open(document, "r") as file:
             for line in file:
                 line = line.strip()
                 logger.debug(f"line is: {line}")
@@ -33,3 +32,6 @@ class CalibrationService:
             if len(digits) > 1
             else int(digits[0] * 2)
         )
+
+    def _reset_calibration_value(self):
+        self.calibration_value = 0
