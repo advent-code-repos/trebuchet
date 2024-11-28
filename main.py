@@ -16,17 +16,5 @@ def main():
     controller.run_calibration_by(document, 1)
 
 
-#  document = "calibration-document-spelled-out-letters.example"
-#
-#  calibration_service = CalibrationService(document)
-#  logger.info("CalibrationService initiated")
-
-#  calibration_value = calibration_service.recalibrate(False)
-#  logger.info(
-#      "Recalibration is terminate with this "
-#      f"calibration value: {calibration_value}"
-#  )
-
-
 if __name__ == "__main__":
     main()
