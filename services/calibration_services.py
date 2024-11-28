@@ -6,8 +6,16 @@ class CalibrationService:
         self.calibration_value = 0
         self.document = document
 
+    def _reset_calibration_value(self):
+        self.calibration_value = 0
+
     def recalibrate(self):
-        logger.info(f"starts with: {self.document}")
+        self._reset_calibration_value()
+        logger.info(
+            f"starts with: {self.document} "
+            f"and calibration_value {self.calibration_value}"
+        )
+
         with open(self.document, "r") as file:
             for line in file:
                 line = line.strip()
