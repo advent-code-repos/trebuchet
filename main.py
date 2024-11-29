@@ -7,13 +7,13 @@ from services.calibration_services import CalibrationService
 def main():
     logger.info("Advent Calendar 2023 starts")
 
-    document = "calibration-document.example"
+    document = "calibration-document-spelled-out-letters"
 
     service = CalibrationService(logger)
     manager = CalibrationManager(service, logger)
     controller = CalibrationController(manager, logger)
 
-    controller.run_calibration_by(document, 1)
+    controller.run_calibration_by(document, 2)
 
 
 if __name__ == "__main__":
