@@ -1,3 +1,5 @@
+import re
+
 from config.logger import logger
 
 token_map = {
@@ -60,9 +62,11 @@ class CalibrationService:
         words_map = {}
         for token in token_map:
             if token in line:
-                index = line.find(token)
-                logger.debug(f"index of {token_map[token]} is: {index}")
-                words_map[index] = token_map[token]
+                indexes = self._find_occurrences(line, token)
+                logger.debug(f"indexes: {indexes}")
+                words_map = words_map | (
+                    self._assign_indexes(indexes, token_map[token])
+                )
         logger.debug(f"words_map: {words_map}")
 
         digits_map = {line.find(ch): int(ch) for ch in line if ch.isdigit()}
@@ -73,6 +77,8 @@ class CalibrationService:
         if len(numbers_map) < 1:
             return 0
 
+        numbers_map = dict(sorted(numbers_map.items()))
+
         min_index = min(numbers_map.keys())
         max_index = max(numbers_map.keys())
 
@@ -81,5 +87,14 @@ class CalibrationService:
                 str(numbers_map[min_index]) + str(numbers_map[min_index])
             )
         result = str(numbers_map[min_index]) + str(numbers_map[max_index])
+        logger.info(f"line: {line}")
+        logger.info(f"numbers_map: {numbers_map}")
+        logger.info(f"result: {result}")
 
         return int(result)
+
+    def _find_occurrences(self, line, token):
+        return [match.start() for match in re.finditer(re.escape(token), line)]
+
+    def _assign_indexes(self, indexes, value):
+        return {i: value for i in indexes}

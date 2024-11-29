@@ -5,7 +5,7 @@ from services.calibration_services import CalibrationService
 
 
 def main():
-    logger.info("Advent Calendar 2023 starts")
+    logger.info("Advent Calendar 2023 day1 starts")
 
     document = "calibration-document-spelled-out-letters"
 
